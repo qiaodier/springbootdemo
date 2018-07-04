@@ -1,0 +1,19 @@
+#该配置是开发环境配置文件
+server:
+  port: 9999
+  context-path: /qiaohao
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qiaohao
+    username: root
+    password: qiaohao
+    type: com.alibaba.druid.pool.DruidDataSource
+
+debug: true
+logging:
+  level:
+    com.test.demo.mapper: DEBUG # 设置打印该路径下的所有sql 语句
