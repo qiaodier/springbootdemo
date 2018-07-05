@@ -1,7 +1,7 @@
 package com.test.demo.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
 import com.test.demo.model.BaseRespBean;
 import com.test.demo.model.UserTable;
 import com.test.demo.service.UserService;
@@ -10,8 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * user 相关的controller
@@ -21,7 +24,8 @@ import java.util.List;
 public class Usercontroller {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
+    @Autowired
+    Gson gson;
     @Autowired
     UserService userService;
 
@@ -44,17 +48,17 @@ public class Usercontroller {
             baseRespBean.setMesg("失败");
             baseRespBean.setData(new ArrayList<UserTable>());
         }
-        logger.info("获取所有用户信息resp:=>" + new Gson().toJson(baseRespBean).toString());
+        logger.info("获取所有用户信息resp:=>" + gson.toJson(baseRespBean).toString());
         return baseRespBean;
     }
 
     /**
      * 根据主键id 查询用户
+     *
      * @param userId
      * @return
      */
     @GetMapping(value = "/{id}")
-    @ResponseBody
     public BaseRespBean<UserTable> queryById(@PathVariable("id") Integer userId) {
         logger.info("通过id查数据request:=>userId:" + userId);
         UserTable userTable = userService.queryById(userId);
@@ -68,9 +72,32 @@ public class Usercontroller {
             baseRespBean.setCode(1);
             baseRespBean.setData(null);
         }
-        String result = new Gson().toJson(baseRespBean).toString();
+        String result = gson.toJson(baseRespBean).toString();
         logger.info("通过id查数据resp:=>" + result);
         return baseRespBean;
     }
+
+    /**
+     * 添加用户
+     * @param userTable
+     * @return
+     */
+    @PostMapping(value = "/add")
+    public BaseRespBean add(@RequestBody UserTable userTable) {
+        logger.info("添加用户request:=>"+gson.toJson(userTable).toString());
+        BaseRespBean baseRespBean = new BaseRespBean();
+        int result =userService.insertUser(userTable);
+        if (result>0) {
+            baseRespBean.setCode(0);
+            baseRespBean.setMesg("成功");
+        }else{
+            baseRespBean.setCode(1);
+            baseRespBean.setMesg("失败");
+        }
+        logger.info("添加用户resp:=>"+gson.toJson(baseRespBean).toString());
+        return baseRespBean;
+    }
+
+
 
 }

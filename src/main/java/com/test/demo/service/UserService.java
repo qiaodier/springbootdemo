@@ -11,4 +11,6 @@ public interface UserService  {
      List<UserTable> userTableList();
 
      UserTable queryById(int userId);
+
+     int insertUser(UserTable userTable);
 }

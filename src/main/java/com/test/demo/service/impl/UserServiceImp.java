@@ -23,4 +23,9 @@ public class UserServiceImp implements UserService {
         UserTable userTable = userTableMapper.selectByPrimaryKey(userId);
         return userTable;
     }
+
+    @Override
+    public int insertUser(UserTable userTable) {
+        return userTableMapper.insert(userTable);
+    }
 }
