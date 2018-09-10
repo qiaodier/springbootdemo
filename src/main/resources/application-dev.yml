@@ -1,19 +1,23 @@
 #该配置是开发环境配置文件
 server:
-  port: 9999
-  context-path: /qiaohao
+  port: 9999  #端口号
+  context-path: /qiaohao  #路径
 spring:
   http:
     encoding:
-      charset: UTF-8
+      charset: UTF-8  #编码格式
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/qiaohao
-    username: root
-    password: qiaohao
-    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver  #jdbc
+    url: jdbc:mysql://localhost:3306/qiaohao #数据库地址
+    username: root  #数据库名
+    password: qiaohao  #数据库密码
+    type: com.alibaba.druid.pool.DruidDataSource  #使用框架
 
 debug: true
 logging:
   level:
-    com.test.demo.mapper: DEBUG # 设置打印该路径下的所有sql 语句
+    com.test.demo.mapper: DEBUG
+mybatis:
+  mapper-locations: #设置mapper.xml的路径
+  type-aliases-package: #指定mapper中的实体类包路径
+

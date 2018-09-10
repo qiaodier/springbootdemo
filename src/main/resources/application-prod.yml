@@ -6,4 +6,4 @@ spring:
   http:
     encoding:
       charset: UTF-8
-debug: true
+debug: false
