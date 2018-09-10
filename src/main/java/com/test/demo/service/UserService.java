@@ -13,4 +13,6 @@ public interface UserService  {
      UserTable queryById(int userId);
 
      int insertUser(UserTable userTable);
+
+     int deleteUser(int userId);
 }
